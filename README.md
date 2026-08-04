@@ -1,4 +1,4 @@
-# Sunrise Dental Clinic - Online Vehicle/Dental Reservation System
+# Dental Reservation System
 
 **Module:** Advanced Programming (CIS6003)  
 **Assessment:** WRIT1 - Online Reservation System  
