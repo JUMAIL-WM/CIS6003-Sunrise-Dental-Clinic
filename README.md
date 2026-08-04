@@ -1,4 +1,4 @@
-# Dental Reservation System
+# Sunrise Dental Clinic - Dental Reservation System
 
 **Module:** Advanced Programming (CIS6003)  
 **Assessment:** WRIT1 - Online Reservation System  
@@ -84,5 +84,8 @@ Unit testing was performed using **JUnit 5** framework to validate the business 
 Developed for academic assessment purposes under Cardiff Metropolitan University module **CIS6003 - Advanced Programming**.
 
 ```
-
+Mohammed Jumail
++94760527243
+https://www.linkedin.com/in/jumail/
+jumailwm@gmail.com
 ```
