@@ -10,11 +10,16 @@ import javax.swing.UIManager;
  *
  * @author Future_Mind
  */
-public class Main {
-    public static void main(String[] args) {
-        try {
+public class Main 
+{
+    public static void main(String[] args) 
+    {
+        try 
+        {
             UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
         java.awt.EventQueue.invokeLater(() -> new LoginPage().setVisible(true));
