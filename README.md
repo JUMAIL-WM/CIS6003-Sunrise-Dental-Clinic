@@ -6,7 +6,6 @@
 **Student Name:** MOHAMMED JUMAIL  
 **Student ID:** CL/BSCSD/35/24  
 **Package:** Desktop Application (JAR: `dist/SunriseDentalSystem.jar`)
-
 **System Architecture:** Three-Tier Desktop Application with MySQL Persistence
 
 ---
@@ -36,12 +35,14 @@ The system is structured around three primary user roles:
 * CSV operational log streaming and full database maintenance.
 
 
+
 * **Staff / Receptionist:**
 * Patient intake, demographic data registration, and directory management.
 * Searching dentist availability and scheduling dynamic appointments.
 * Calculating combined treatment bills ($\text{Treatment Cost} + \text{Consultation Fee}$).
 * Generating formatted monospaced receipts and executing physical print jobs via the Java Print API.
 * Exporting operational reports (Patients and Appointments) to CSV spreadsheets.
+
 
 
 * **Dentist:**
