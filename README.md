@@ -6,6 +6,7 @@
 **Student Name:** MOHAMMED JUMAIL  
 **Student ID:** CL/BSCSD/35/24  
 **Package:** Desktop Application (JAR: `dist/SunriseDentalSystem.jar`)
+
 **System Architecture:** Three-Tier Desktop Application with MySQL Persistence
 
 ---
