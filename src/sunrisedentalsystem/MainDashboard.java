@@ -13,6 +13,8 @@ import java.awt.*;
 public class MainDashboard extends JFrame 
 {
 
+    private String currentUserRole = "ADMIN";
+
     private CardLayout cardLayout;
     private JPanel contentPanel;
 
@@ -31,15 +33,28 @@ public class MainDashboard extends JFrame
     private JPanel pnlPatientsSub;
     private JPanel pnlAppSub;
     private JPanel pnlUsersSub;
+    private JButton btnUsersMain;
 
+    // Parameterized Constructor accepting Role
+    public MainDashboard(String role) 
+    {
+        this.currentUserRole = (role != null && !role.trim().isEmpty()) ? role.toUpperCase() : "ADMIN";
+        initComponents();
+    }
+
+    // Default Constructor
     public MainDashboard() 
     {
-        setTitle("Sunrise Dental Clinic - Reservation System");
+        this("ADMIN");
+    }
+
+    private void initComponents() 
+    {
+        setTitle("Sunrise Dental Clinic - Reservation System (" + currentUserRole + " Portal)");
         setSize(1280, 800);
         setMinimumSize(new Dimension(1024, 700));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
         setLayout(new BorderLayout());
 
         // SIDEBAR
@@ -52,8 +67,15 @@ public class MainDashboard extends JFrame
         lblLogo.setFont(new Font("SansSerif", Font.BOLD, 18));
         lblLogo.setForeground(new Color(56, 189, 248));
         lblLogo.setAlignmentX(Component.LEFT_ALIGNMENT);
-        lblLogo.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 10));
+        lblLogo.setBorder(BorderFactory.createEmptyBorder(20, 20, 5, 10));
         sidebar.add(lblLogo);
+
+        JLabel lblUserRole = new JLabel("Role: " + currentUserRole);
+        lblUserRole.setFont(new Font("SansSerif", Font.PLAIN, 11));
+        lblUserRole.setForeground(new Color(148, 163, 184));
+        lblUserRole.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblUserRole.setBorder(BorderFactory.createEmptyBorder(0, 20, 15, 10));
+        sidebar.add(lblUserRole);
 
         JButton btnDash = createNavBtn("⌂  Dashboard");
 
@@ -76,7 +98,8 @@ public class MainDashboard extends JFrame
         JButton btnBill = createNavBtn("💳  Billing & Receipts");
         JButton btnPresc = createNavBtn("✎  Prescriptions");
 
-        JButton btnUsersMain = createNavBtn("👤  User Management ▼");
+        // Role Protected Module: User Management
+        btnUsersMain = createNavBtn("👤  User Management ▼");
         pnlUsersSub = createSubMenuPanel();
         JButton btnManageUser = createSubNavBtn("  └ Manage Users");
         pnlUsersSub.add(btnManageUser);
@@ -95,14 +118,20 @@ public class MainDashboard extends JFrame
         sidebar.add(pnlAppSub);
         sidebar.add(btnBill);
         sidebar.add(btnPresc);
-        sidebar.add(btnUsersMain);
-        sidebar.add(pnlUsersSub);
+
+        // RBAC Enforcement: Hide User Management for non-admin accounts
+        if (currentUserRole.equalsIgnoreCase("ADMIN")) 
+        {
+            sidebar.add(btnUsersMain);
+            sidebar.add(pnlUsersSub);
+        }
+
         sidebar.add(btnReports);
         sidebar.add(btnHelp);
         sidebar.add(Box.createVerticalGlue());
         sidebar.add(btnExit);
 
-        // CONTENT PANEL
+        // CONTENT PANEL (CardLayout)
         cardLayout = new CardLayout();
         contentPanel = new JPanel(cardLayout);
 
@@ -156,13 +185,17 @@ public class MainDashboard extends JFrame
         });
 
         btnPresc.addActionListener(e -> { closeSubMenus(); showPage("PRESCRIPTIONS"); });
-        btnUsersMain.addActionListener(e -> pnlUsersSub.setVisible(!pnlUsersSub.isVisible()));
-        btnManageUser.addActionListener(e -> showPage("USERS"));
+        
+        if (currentUserRole.equalsIgnoreCase("ADMIN")) 
+        {
+            btnUsersMain.addActionListener(e -> pnlUsersSub.setVisible(!pnlUsersSub.isVisible()));
+            btnManageUser.addActionListener(e -> showPage("USERS"));
+        }
 
         btnReports.addActionListener(e -> { closeSubMenus(); showPage("REPORTS"); });
         btnHelp.addActionListener(e -> { closeSubMenus(); showPage("HELP"); });
 
-        // Safe Exit System Action Event
+        // Safe Exit Confirmation Event
         btnExit.addActionListener(e -> 
         {
             int confirm = JOptionPane.showConfirmDialog(
@@ -173,8 +206,9 @@ public class MainDashboard extends JFrame
                 JOptionPane.QUESTION_MESSAGE
             );
 
-            if (confirm == JOptionPane.YES_OPTION) {
-                System.exit(0); // Safely closes the application
+            if (confirm == JOptionPane.YES_OPTION) 
+            {
+                System.exit(0);
             }
         });
     }
@@ -227,8 +261,8 @@ public class MainDashboard extends JFrame
         return btn;
     }
 
-    public static void main(String[] args) 
+    public static void main(String[] args)
     {
-        SwingUtilities.invokeLater(() -> new MainDashboard().setVisible(true));
+        SwingUtilities.invokeLater(() -> new LoginPage().setVisible(true));
     }
 }
